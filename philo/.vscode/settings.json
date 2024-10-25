@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"philosophers.h": "c",
+		"math.h": "c",
+		"limits.h": "c",
+		"climits": "c"
+	}
+}
