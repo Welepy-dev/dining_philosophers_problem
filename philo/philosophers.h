@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 
 # include <math.h>
+# include <errno.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -88,7 +89,7 @@ typedef enum e_operation
 	DETACH,
 } t_operation;
 
-void	p_err(char *s);
+void	er(char *s);
 void	wrong_args(void);
 void	*h_malloc(size_t size);
 void	parse_args(int ac, char **av, t_data *data);

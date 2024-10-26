@@ -32,19 +32,19 @@ static long	ft_atol(const char *str, int tag)
 	if (*str == '+')
 		++str;
 	else if (*str == '-')
-		p_err("Use only positive integers");
+		er("Use only positive integers");
 	if (!is_digit(*str))
-		p_err("Invalid input, use actual numbers");
+		er("Invalid input, use actual numbers");
 	while (*str && is_digit(*str))
 		num = (num * 10) + (str++ - '0');
 	if (num > INT_MAX)
-		p_err("Input number too large");
+		er("Input number too large");
 	if (tag == 1 && num < 1)
-		p_err("You must have at least 1 philosopher");
+		er("You must have at least 1 philosopher");
 	if (tag == 2 && num < 60)
-		p_err("Timestamps must be at least 60ms");
+		er("Timestamps must be at least 60ms");
 	if (tag == 3 && num < 1)
-		p_err("Philosophers must eat at least 1 time");
+		er("Philosophers must eat at least 1 time");
 	return (num);
 }
 

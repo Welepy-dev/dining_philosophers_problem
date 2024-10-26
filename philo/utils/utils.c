@@ -12,7 +12,7 @@
 
 #include "../philosophers.h"
 
-void	p_err(char *s)
+void	er(char *s)
 {
 	write(2, "Error: ", 7);
 	while (*s)
@@ -39,6 +39,6 @@ void	*h_malloc(size_t size)
 
 	var = malloc(size);
 	if (!var)
-		p_err("Memory allocation failed");
+		er("Memory allocation failed");
 	return (var);
 }
