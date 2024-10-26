@@ -12,36 +12,9 @@
 
 #include "../philosophers.h"
 
-int	ft_atoi(const char *str)
-{
-	int	num;
-	int	isneg;
-	int	i;
-
-	num = 0;
-	isneg = 1;
-	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == '\t'
-			|| str[i] == '\n' || str[i] == '\r'
-			|| str[i] == '\v' || str[i] == '\f'))
-		i++;
-	if (str[i] == '+')
-		i++;
-	else if (str[i] == '-')
-	{
-		isneg *= -1;
-		i++;
-	}
-	while (ft_isdigit(str[i]))
-	{
-		num = (num * 10) + (str[i] - '0');
-		i++;
-	}
-	return (num * isneg);
-}
-
 void	p_err(char *s)
 {
+	write(2, "Error: ", 7);
 	while (*s)
 	{
 		write(2, s, 1);
@@ -51,17 +24,21 @@ void	p_err(char *s)
 	exit (1);
 }
 
-int	ft_isdigit(int c)
+void	wrong_args(void)
 {
-	if (c >= 48 && c <= 57)
-		return (1);
-	else
-		return (0);
+	write(2, "Error:  Wrong input.\nTry ./philo ", 33);
+	write(2, "n_philos t_to_die t_to_eat t_to_sleep [n_of_meals].\n", 52);
+	write(2, "e.g: ./philo 5 800 200 200 5.\n", 30);
+	write(2, "n_of_meals not required.\n", 25);
+	exit(1);
 }
 
-void	validation(int ac, char **av, t_data *data)
+void	*h_malloc(size_t size)
 {
-	arg_validation(ac, av);
-	assignment(data, ac, av);
-	check_values(data, ac);
+	void	*var;
+
+	var = malloc(size);
+	if (!var)
+		p_err("Memory allocation failed");
+	return (var);
 }
