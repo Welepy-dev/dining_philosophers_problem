@@ -37,7 +37,11 @@ static void	mutex_error_handler(int status, t_operation operation)
 
 static void thread_error_handler(int status, t_operation operation
 {
-	
+	if (status == 0)
+		return ;
+	if (status == EAGAIN)
+		er("No resources to create another thread")
+	if (status == EPERM)
 }
 
 void	mutex_handler(pthread_mutex_t *mutex, t_operation operation)
