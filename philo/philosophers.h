@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:16:42 by marcsilv          #+#    #+#             */
-/*   Updated: 2024/10/26 16:49:30 by marcsilv         ###   ########.fr       */
+/*   Updated: 2024/12/10 22:02:57 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				nb_eat;
-	int				last_eat;
+	int				last_meal;
 	pthread_t		thread;
 	t_data			*data;
 }	t_philo;*/
@@ -70,10 +70,10 @@ typedef struct s_data
 	bool	end;
 	long	start;
 	t_fork	*forks;
-	t_philo	*philos;
+	t_philo	*philosopher;
 	long	t_to_die;
 	long	t_to_eat;
-	long	nb_philos;
+	long	number_of_philos;
 	long	t_to_sleep;
 	long	meal_limit;
 }	t_data;
@@ -93,5 +93,8 @@ void	er(char *s);
 void	wrong_args(void);
 void	*h_malloc(size_t size);
 void	parse_args(int ac, char **av, t_data *data);
-
+void	initialization_and_assignment(t_data *data);
+void	thread_handler(pthread_t *thread, void *(*func)(void *), \
+	void *data, t_operation operation);
+void	mutex_handler(pthread_mutex_t *mutex, t_operation operation);
 #endif
