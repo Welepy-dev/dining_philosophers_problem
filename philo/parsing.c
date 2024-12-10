@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 15:03:45 by marcsilv          #+#    #+#             */
-/*   Updated: 2024/10/26 16:49:22 by marcsilv         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:58:06 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static long	ft_atol(const char *str, int tag)
 
 void	parse_args(int ac, char **av, t_data *data)
 {
-	data->nb_philos = ft_atol(av[1], 1);
+	data->number_of_philos = ft_atol(av[1], 1);
 	data->t_to_die = (ft_atol(av[2], 2) * 1e3);
 	data->t_to_eat = (ft_atoi(av[3], 2) * 1e3);
 	data->t_to_sleep = (ft_atol(av[4], 2) * 1e3);
