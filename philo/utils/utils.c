@@ -42,3 +42,18 @@ void	*h_malloc(size_t size)
 		er("Memory allocation failed");
 	return (var);
 }
+
+long	get_time(t_time time_code)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL))
+		er("gettimeofday failed");
+	if (time_code == SECOND)
+		return (time.tv_sec + time.tv_usec / 1e6);
+	if (time_code == MILLISECOND)
+		return ((time.tv_sec * 1e3)+ (time.tv_usec / 1e3));
+	if (time_code == MICROSECOND)
+		return ((time.tv_sec * 1e6) + time.tv_usec);
+	return (-1);
+}
