@@ -15,6 +15,7 @@
 int	main(int ac, char **av)
 {
 	t_data data;
+
 	if (ac == 5 || ac == 6)
 	{
 		parse_args(ac, av, &data);
@@ -27,14 +28,3 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-/*
-void	init(t_data *data)
-{
-	pthread_mutex_t	*forks;
-	pthread_t	*philosophers;
-
-	forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
-	philosophers = malloc(sizeof(pthread_t) * data->nb_philo);
-	
-}
-*/
