@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:16:42 by marcsilv          #+#    #+#             */
-/*   Updated: 2024/12/10 22:02:57 by welepy           ###   ########.fr       */
+/*   Updated: 2024/12/16 20:44:06 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_fork
 	int	fork_id
 }	t_fork;
 
+typedef struct s_data t_data;
 
 typedef struct s_philo
 {
@@ -63,20 +64,23 @@ typedef struct s_philo
 	t_fork	*left_fork;
 	t_fork	*right_fork;
 	pthread_t	thread_id;
+	t_data	*data;
 }	t_philo;
 
-typedef struct s_data
+struct s_data
 {
 	bool	end;
 	long	start;
 	t_fork	*forks;
-	t_philo	*philosopher;
 	long	t_to_die;
 	long	t_to_eat;
-	long	number_of_philos;
 	long	t_to_sleep;
 	long	meal_limit;
-}	t_data;
+	t_philo	*philosopher;
+	bool	are_philosophers_ready;
+	pthread_mutex_t general_mutex;
+	long	number_of_philosophers;
+};
 
 typedef enum e_operation
 {
@@ -89,12 +93,26 @@ typedef enum e_operation
 	DETACH,
 } t_operation;
 
+typedef enum e_time
+{
+	SECOND,
+	MILLISECOND,
+	MICROSECOND
+}	t_time;
+
 void	er(char *s);
 void	wrong_args(void);
 void	*h_malloc(size_t size);
 void	parse_args(int ac, char **av, t_data *data);
-void	initialization_and_assignment(t_data *data);
+void	set_bool(pthread_mutex_t *mutex, bool *dest, bool value);
+bool	get_bool(pthread_mutex_t *mutex, bool *value);
+long	get_long(pthread_mutex_t *mutex, long *value);
+void	set_long(pthread_mutex_t *mutex, long *dest, long value);
+bool	simulation_finished(t_data *data);
+void	is_initialization_and_assignment(t_data *data);
+void	wait_for_philosophers(t_data *data);
 void	thread_handler(pthread_t *thread, void *(*func)(void *), \
 	void *data, t_operation operation);
 void	mutex_handler(pthread_mutex_t *mutex, t_operation operation);
+
 #endif
