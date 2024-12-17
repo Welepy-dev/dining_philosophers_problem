@@ -57,3 +57,25 @@ long	get_time(t_time time_code)
 		return ((time.tv_sec * 1e6) + time.tv_usec);
 	return (-1);
 }
+void	ft_usleep(long time, t_data *data)
+{
+	long	start;
+	long	elapsed;
+	long	rem;
+
+	start = get_time(MICROSECOND);
+	while (get_time(MICROSECOND) - start < time)
+	{
+		if (simulation_finished(&data))
+			break ;
+		elapsed = get_time(MICROSECOND) - start;
+		rem = time - elapsed;
+		if (rem > 1e3)
+			usleep(1e3);
+		else
+		{
+			while (get_time(MICROSECOND) - start < time)
+				;
+		}
+
+}
