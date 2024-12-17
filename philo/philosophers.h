@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:16:42 by marcsilv          #+#    #+#             */
-/*   Updated: 2024/12/16 20:44:06 by welepy           ###   ########.fr       */
+/*   Updated: 2024/12/17 19:21:08 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_philo
 	t_fork	*right_fork;
 	pthread_t	thread_id;
 	t_data	*data;
+	pthread_mutex_t	philosopher_mutex;
 }	t_philo;
 
 struct s_data
@@ -77,8 +78,9 @@ struct s_data
 	long	t_to_sleep;
 	long	meal_limit;
 	t_philo	*philosopher;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	general_mutex;
 	bool	are_philosophers_ready;
-	pthread_mutex_t general_mutex;
 	long	number_of_philosophers;
 };
 
@@ -92,6 +94,17 @@ typedef enum e_operation
 	JOIN,
 	DETACH,
 } t_operation;
+
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	DEAD,
+	FULL,
+	TAKING_FIRST_FORK,
+	TAKING_SECOND_FORK,
+}	t_status;
 
 typedef enum e_time
 {
@@ -109,6 +122,7 @@ bool	get_bool(pthread_mutex_t *mutex, bool *value);
 long	get_long(pthread_mutex_t *mutex, long *value);
 void	set_long(pthread_mutex_t *mutex, long *dest, long value);
 bool	simulation_finished(t_data *data);
+void	status(t_philo *philosopher, t_status status, bool debug);
 void	is_initialization_and_assignment(t_data *data);
 void	wait_for_philosophers(t_data *data);
 void	thread_handler(pthread_t *thread, void *(*func)(void *), \
