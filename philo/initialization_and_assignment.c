@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 16:19:09 by marcsilv          #+#    #+#             */
-/*   Updated: 2024/12/16 20:15:41 by welepy           ###   ########.fr       */
+/*   Updated: 2024/12/17 19:21:25 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	initialization_and_assignment(t_data *data)
 		data->philosopher[i].is_full = false;
 		data->philosopher[i].meals = 0;
 		data->philosopher[i].last_meal = 0;
+		mutex_handler(&data->philosopher[i].philosopher_mutex, INIT);
 		fork_assignment(&data->philosopher[i], &data->forks[i], i);
 	}
 }
