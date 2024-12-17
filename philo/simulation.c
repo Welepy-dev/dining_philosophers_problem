@@ -27,6 +27,14 @@ void	*dinner_simulation(void *dinner)
 
 	philosopher = (t_philo *)dinner;
 	wait_for_philosophers(philosopher->data);
+	while (!simulation_finished(philosopher->data))
+	{
+		if (philosopher->is_full)
+			break ;
+		eat(philosopher);
+		sleep(philosopher);
+		think(philosopher);
+	}
 	return (NULL);
 }
 
